@@ -1,15 +1,14 @@
-kind: DeploymentConfig
-apiVersion: apps.openshift.io/v1
+kind: Deployment
+apiVersion: apps/v1
 metadata:
   name: vote
   labels:
     app: voting-app
 spec:
-  triggers:
-  - type: ConfigChange
   replicas: 1
   selector:
-    app: vote
+    matchLabels:
+      app: vote 
   template:
     metadata:
       labels:
@@ -20,3 +19,4 @@ spec:
       containers:
         - name: vote
           image: mgrillet/vote:latest
+          imagePullPolicy: Always
